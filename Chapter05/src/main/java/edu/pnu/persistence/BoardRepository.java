@@ -36,7 +36,7 @@ public interface BoardRepository extends JpaRepository<Board, Long> { //body는 
 	List<Board> queryAnnotationTest1(@Param("searchKeyword") String searchKeyword); 
 	
 	
-	//특정 변수만 조회하기
+	//특정 변수만 조회(특정 컬럼들만 조회해서 그 값을 들고 온다)
 	@Query("SELECT b.seq, b.title, b.writer, b.createDate FROM Board b WHERE b.title like %?1% ORDER BY b.seq DESC")
 	List<Object[]> queryAnnotationTest2(@Param("searchKeyword") String searchKeyword);
 	
