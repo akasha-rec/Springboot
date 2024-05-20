@@ -28,8 +28,8 @@ public class MemberController {
 		return map.values();
 	}
 	
-	@PostMapping("/member")
-	public MemberVO getMember(Integer id) { //키로 검색...
-		for ()
-	}
+//	@PostMapping("/member")
+//	public MemberVO getMember(Integer id) { //키로 검색...
+//		for ()
+//	}
 }
