@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Random;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -15,7 +16,7 @@ import edu.pnu.persistence.BoardRepository;
 public class QueryMethodTest2 {
 	@Autowired private BoardRepository boardRepo;
 	
-	//@BeforeEach //테스트 메서드 실행 이전에 실행
+	@BeforeEach //테스트 메서드 실행 이전에 실행
 	public void dataPrepare() {
 		Random rnd = new Random();
 		for (int i = 1; i <= 100; i++) {
