@@ -1,4 +1,4 @@
-package edu.pnu.domain;
+package edu.pnu.domain; //Entity 생성
 
 import java.util.Date;
 

@@ -14,13 +14,13 @@ import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
 @Component
-public class DataInit implements ApplicationRunner {
+public class DataInit implements ApplicationRunner { //서버 구동할 때마다 데이터 베이스 초기화 시켜줌
 	
 	private final BoardRepository boardRepo;
 	private final MemberRepository memberRepo;
-	
+
 	@Override
-	public void run(ApplicationArguments args) throws Exception { //서버 구동할 때마다 데이터 베이스 초기화 시켜줌
+	public void run(ApplicationArguments args) throws Exception { //하이버네이트가 SQL 만들어서 H2로 던져
 		
 		Member member1 = Member.builder()
 				.id("member1").password("password1").name("홍길동")
