@@ -8,7 +8,9 @@ import org.springframework.boot.ApplicationRunner;
 import org.springframework.stereotype.Component;
 
 import edu.pnu.domain.Board;
+import edu.pnu.domain.Member;
 import edu.pnu.persistence.BoardRepository;
+import edu.pnu.persistence.MemberRepository;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
@@ -16,6 +18,7 @@ import lombok.RequiredArgsConstructor;
 public class DataInit implements ApplicationRunner { //기본 데이터 세팅
 	
 	@Autowired private BoardRepository boardRepo;
+	@Autowired private MemberRepository memberRepo;
 	
 	@Override
 	public void run(ApplicationArguments args) throws Exception {
@@ -26,6 +29,18 @@ public class DataInit implements ApplicationRunner { //기본 데이터 세팅
 					.content("내용" + i)
 					.createDate(new Date()).build());
 		}
+		
+		memberRepo.save(Member.builder()
+				.id("member1")
+				.password("abcd")
+				.name("가나")
+				.role("ROLE_USER").build());
+		
+		memberRepo.save(Member.builder()
+				.id("member2")
+				.password("abcd")
+				.name("다라")
+				.role("ROLE_ADMIN").build());
 
 	}
 
