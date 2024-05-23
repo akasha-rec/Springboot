@@ -11,6 +11,8 @@
 	<th bgcolor="orange" align="left">예외 메시지 : [[${message}]]</th>
 </tr>
 
+<tr th:each="trace : ${stackTrace}">
+<td th:text="${trace}">
 </table>
 </body>
 </html>

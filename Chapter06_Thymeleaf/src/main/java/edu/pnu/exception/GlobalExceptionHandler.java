@@ -22,7 +22,7 @@ public class GlobalExceptionHandler {
 	@ExceptionHandler(Exception.class)
 	public String handleException(Exception exception, Model model) {
 		model.addAttribute("message", exception.getMessage());
-//		model.addAttribute("stacktrace", exception.getStackTrace());
+		model.addAttribute("stacktrace", exception.getStackTrace());
 		return "/errors/globalError";
 	}
 }
