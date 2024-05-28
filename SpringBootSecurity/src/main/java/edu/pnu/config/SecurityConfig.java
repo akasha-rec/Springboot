@@ -10,11 +10,11 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
-@Configuration //설정 클래스라고 정의(loC 컨테이너에 로드)
+@Configuration //설정 클래스라고 정의(IoC 컨테이너에 로드)
 @EnableWebSecurity //스프링 시큐리티 적용에 필요한 필터 객체들 자동 생성
 public class SecurityConfig {
 	
-	@Bean //붙어있는 메서드가 리턴하는 객체를 loC 컨테이너에 등록하라는 지시(httpSecurity 객체로 등록)
+	@Bean //붙어있는 메서드가 리턴하는 객체를 IoC 컨테이너에 등록하라는 지시(httpSecurity 객체로 등록)
 	SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 		
 		http.authorizeHttpRequests(security->security
