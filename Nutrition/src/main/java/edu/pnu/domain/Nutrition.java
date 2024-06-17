@@ -21,24 +21,24 @@ import lombok.ToString;
 public class Nutrition {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int id;
-	private String foodcode; // 식품코드
+	private int id; // sequence number
+	private String foodcode;
 	private String foodname; // 식품명
-	private String datacode; // 데이터 구분코드
-	private String gubun; // 데이터 구분명
-	private int origincode; // 식품기원코드
-	private String originname; // 식품기원명
-	private String code1; // 식품대분류코드
-	private String code1name; // 식품대분류명
-	private String code2; // 대표식품코드
-	private String code2name; // 대표식품명
-	private String code3; // 식품중분류코드
-	private String code3name; // 식품중분류명
-	private String code4; // 식품소분류코드
-	private String code4name; // 식품소분류명
-	private String code5; // 식품세분류코드
-	private String code5name; // 식품세분류명
-	private String amount; // 영양성분함량기준량
+	private String datacode;
+	private String gubun;
+	private int origincode;
+	private String originname; // 식품기원명 (O : 식사유형)
+	private String code1;
+	private String code1name; // 식품대분류명(O : 대분류명)
+	private String code2;
+	private String code2name; // 대표식품명(O : 중분류명)
+	private String code3;
+	private String code3name; // 식품중분류명(O : 소분류명)
+	private String code4;
+	private String code4name;
+	private String code5;
+	private String code5name;
+	private String amount;
 	private int energy;
 	private double carbohydrate;
 	private double dietaryFiber;
