@@ -22,11 +22,11 @@ public class MemberService {
 			return false;
 		}
 		else {
-			member.setAge(member.getAge());
-			member.setGubun(member.getGubun());
-			member.setWeekNum(member.getWeekNum());
-			member.setUserId(member.getUserId());
-			member.setPassword(encoder.encode(member.getPassword()));
+//			member.setAge(member.getAge()); // 사용자가 입력한 값이 이미 member 안에 값이 세팅되어있으므로 작성할 필요X
+//			member.setGubun(member.getGubun());
+//			member.setWeekNum(member.getWeekNum());
+//			member.setUserId(member.getUserId());
+			member.setPassword(encoder.encode(member.getPassword())); // 비밀번호는 DB에 저장하기 전에 암호화해야 하므로 작성해줘야 함.
 			memberRepo.save(member);
 			return true;
 		}

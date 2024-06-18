@@ -24,9 +24,9 @@ public class Member {
 	private String userId;
 	private String password;
 	
-	private String age;
-	private String gubun;
-	private String weekNum;
+	private String userAge;
+	private String userCondition1;
+	private String userCondition2;
 	
 	@Builder.Default
 	@Enumerated(EnumType.STRING)

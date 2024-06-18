@@ -20,6 +20,7 @@ public class MemberController {
     
     @PostMapping("/BeMember")
     public ResponseEntity<?> BeMember(@RequestBody Member member) { // 회원가입
+    	System.out.println("멤버" + member);
         boolean isSuccess = memberService.successMember(member);
         
         if (!isSuccess) {
