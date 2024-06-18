@@ -20,7 +20,7 @@ public class MemberController {
     
     @PostMapping("/BeMember")
     public ResponseEntity<?> BeMember(@RequestBody Member member) { // 회원가입
-    	System.out.println("멤버" + member);
+    	// System.out.println("멤버" + member);
         boolean isSuccess = memberService.successMember(member);
         
         if (!isSuccess) {
@@ -29,6 +29,9 @@ public class MemberController {
             return ResponseEntity.ok("가입 완료되었습니다.");
         }
     }
+    
+//    @PostMapping("/Login")
+//    public ResponseEntity<?> loginMember
     
 	@GetMapping("/member")
 	 public ResponseEntity<?> getMember(String userId) {

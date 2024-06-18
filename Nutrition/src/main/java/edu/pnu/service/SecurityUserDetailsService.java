@@ -19,7 +19,7 @@ public class SecurityUserDetailsService implements UserDetailsService {
 	
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		Member member = memberRepo.findById(username)
+		Member member = memberRepo.findByUserId(username)
 				.orElseThrow(()->new UsernameNotFoundException("Not Found!"));
 		return new User(member.getUserId(), member.getPassword(), AuthorityUtils.createAuthorityList(member.getRole().toString()));
 	}
