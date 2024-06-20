@@ -21,11 +21,12 @@ public class MemberTest {
 	@Test
 	public void successMember() {
 		Member test = Member.builder()
-				.userAge("19~29")
-				.userCondition1("임신 2분기(13주~18주)")
+				.userAge("30~49")
+				.userCondition1("임신 3분기(19주~40주)")
 				.userCondition2("15주")
-				.userId("44@naver.com")
+				.userId("Test@naver.com")
 				.password(encoder.encode("1234"))
+				.phoneNumber("010-2222-3333")
 				.role(Role.ROLE_MEMBER).build();
 		memberRepo.save(test);
 	}

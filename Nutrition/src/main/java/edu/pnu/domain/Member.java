@@ -27,6 +27,7 @@ public class Member {
 	private String userAge;
 	private String userCondition1;
 	private String userCondition2;
+	private String phoneNumber;
 	
 	@Builder.Default
 	@Enumerated(EnumType.STRING)

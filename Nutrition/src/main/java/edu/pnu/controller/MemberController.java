@@ -1,9 +1,6 @@
 package edu.pnu.controller;
 
-import java.util.Optional;
-
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -30,18 +27,32 @@ public class MemberController {
         }
     }
     
-//    @PostMapping("/Login")
-//    public ResponseEntity<?> loginMember
-    
-	@GetMapping("/member")
-	 public ResponseEntity<?> getMember(String userId) {
-        // MemberService를 통해 userId로 멤버 조회
-        Optional<Member> optionalMember = memberService.findMemberByUserId(userId);
-
-        if (optionalMember.isPresent()) {
-            return ResponseEntity.ok(optionalMember.get());
-        } else {
-            return ResponseEntity.notFound().build();
-        }
+    @PostMapping("/user/find/id") // ID 찾기
+    public ResponseEntity<String> findId(@RequestBody Member member) { // ? > Object > String으로 결정
+    	String result = memberService.findId(member);
+    	
+    	if (result.equals("존재하지 않는 회원입니다.")) {
+    		return ResponseEntity.badRequest().body(result);
+    	}
+    	else {
+    		return ResponseEntity.ok(result);
+    	}
     }
+    
+    @PostMapping("/user/find/password")
+    public ResponseEntity<String> findPassword(@RequestBody Member member) {
+    	String result = memberService.findPassword(member);
+    	
+    	if (result.equals("존재하지 않는 회원입니다.")) {
+    		return ResponseEntity.badRequest().body(result);
+    	}
+    	else {
+    		return ResponseEntity.ok(result);
+    	}
+    }
+    
+//    @PostMapping("/user/change/password")
+//    public ResponseEntity<?> changePassword(@RequestBody Member member) { // 비밀번호 변경
+//    	
+//    }
 }

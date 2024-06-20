@@ -2,20 +2,22 @@ package edu.pnu.service;
 
 import java.util.Optional;
 
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.apache.commons.lang3.RandomStringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import edu.pnu.domain.Member;
 import edu.pnu.persistence.MemberRepository;
-import lombok.RequiredArgsConstructor;
+import jakarta.transaction.Transactional;
 
-@RequiredArgsConstructor
 @Service
 public class MemberService {
 	
-	private final MemberRepository memberRepo;
-	PasswordEncoder encoder = new BCryptPasswordEncoder();
+	// private final MemberRepository memberRepo;
+	// PasswordEncoder encoder = new BCryptPasswordEncoder(); // 처음에는 private final PasswordEncoder encoder; 라고 해서 rawPassword cannot be null이라는 오류가 떴었는데 GPT에 물어보니 초기화하지 않아서 그럴 수도 있다고 함
+	@Autowired MemberRepository memberRepo;
+	@Autowired PasswordEncoder encoder; // PasswordEncoder 인터페이스의 구현체인 BCryptPasswordEncoder로 초기화는 했지만, 의존성 관리를 위해 @Autowired를 사용
 
 	public boolean successMember(Member member) { // 회원가입
 		if (memberRepo.existsByUserId(member.getUserId())) {
@@ -32,7 +34,63 @@ public class MemberService {
 		}
 	}
 	
-	public Optional<Member> findMemberByUserId(String userId) {
-        return memberRepo.findByUserId(userId);
-    }
+	public String findId(Member member) { // ID 찾기
+		Member mem = memberRepo.findByPhoneNumber(member.getPhoneNumber());
+		if (mem == null) {
+			return "존재하지 않는 회원입니다.";
+		}
+		else {
+			return mem.getUserId();
+		}
+	}
+	
+	@Transactional
+	public String findPassword(Member member) {
+		Member mem = memberRepo.findByUserIdAndPhoneNumber(member.getUserId(), member.getPhoneNumber());
+		
+		if (mem == null) {
+			return "존재하지 않는 회원입니다.";
+		}
+		else {
+			String newPwd = RandomStringUtils.randomAlphanumeric(8);
+			String encodedPwd = encoder.encode(newPwd);
+			
+			mem.setPassword(encodedPwd);
+			memberRepo.save(mem);
+			
+			return newPwd; // 사용자에게 보여줄 임시 비밀번호
+		}
+	}
+	
+	@Transactional
+	public String changePassword(Member member, String newPassword) {
+		Optional<Member> optMember = memberRepo.findByUserId(member.getUserId());
+		
+		if (optMember.isPresent()) {
+			Member mem = optMember.get();
+			
+			String encodedPwd = encoder.encode(newPassword); // 새 비밀번호를 암호화해서 저장
+			mem.setPassword(encodedPwd);
+			
+			memberRepo.save(mem);
+			
+			return "비밀번호가 성공적으로 변경되었습니다.";
+		}
+		else {
+			return "존재하지 않는 회원입니다.";
+		}
+	}
+
+//	public String findPassword(Member member) {
+//		Member mem = memberRepo.findByUserIdAndPhoneNumber(member.getUserId(), member.getPhoneNumber());
+//		
+//		if (mem == null) {
+//			return "존재하지 않는 회원입니다.";
+//		}
+//		else {
+//			mem.setPassword("abcd");
+//			memberRepo.save(mem);
+//			return "임시 비밀번호가 발급됐습니다.";
+//		}
+//	}
 }
