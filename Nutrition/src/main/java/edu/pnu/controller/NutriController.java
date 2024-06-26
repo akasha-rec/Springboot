@@ -7,30 +7,32 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import edu.pnu.dto.DetailResultDTO;
-import edu.pnu.service.IdSetService;
-import edu.pnu.service.NutriResultService;
-import edu.pnu.service.SelectResultService;
+import edu.pnu.service.ResultSaveService;
 
 @RestController
 public class NutriController {
 	
-	@Autowired
-	private IdSetService idSetService;
+//	@Autowired 뭣도 모르고 호기롭게 Controller 클래스에서도 Save 했었다...
+//	private IdSetService idSetService;
+//	
+//	@Autowired
+//	private NutriResultService nutriResultService;
+//
+//	@Autowired
+//	private SelectResultService selectResultService;
 	
 	@Autowired
-	private NutriResultService nutriResultService;
-
-	@Autowired
-	private SelectResultService selectResultService;
+	private ResultSaveService resultService;
 	
 	@PostMapping("/userdata")
 	public ResponseEntity<?> resultSave(@RequestBody DetailResultDTO detailResult) {
-		System.out.println(detailResult);
-		
-		idSetService.saveIdset(detailResult);
-		nutriResultService.saveNutriResult(detailResult);
-		selectResultService.saveSelectResult(detailResult);
-		
+		resultService.resultSave(detailResult);
 		return ResponseEntity.ok(detailResult);
+		
+//		selectResultService.saveSelectResult(detailResult);
+//		idSetService.saveIdset(detailResult);
+//		nutriResultService.saveNutriResult(detailResult);
+		
 	}
+	
 }
