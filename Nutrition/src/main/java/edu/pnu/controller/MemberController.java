@@ -1,8 +1,16 @@
 package edu.pnu.controller;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import edu.pnu.domain.Member;
@@ -28,31 +36,47 @@ public class MemberController {
     }
     
     @PostMapping("/user/find/id") // ID 찾기
-    public ResponseEntity<String> findId(@RequestBody Member member) { // ? > Object > String으로 결정
+    public ResponseEntity<Map<String, String>> findId(@RequestBody Member member) { // ? > Object > String으로 결정
     	String result = memberService.findId(member);
     	
-    	if (result.equals("존재하지 않는 회원입니다.")) {
-    		return ResponseEntity.badRequest().body(result);
-    	}
-    	else {
-    		return ResponseEntity.ok(result);
-    	}
-    }
-    
-    @PostMapping("/user/find/password")
-    public ResponseEntity<String> findPassword(@RequestBody Member member) {
-    	String result = memberService.findPassword(member);
+    	Map<String, String> response = new HashMap<>();
     	
     	if (result.equals("존재하지 않는 회원입니다.")) {
-    		return ResponseEntity.badRequest().body(result);
+    		response.put("message", result);
+    		return ResponseEntity.badRequest().body(response);
     	}
     	else {
-    		return ResponseEntity.ok(result);
+    		response.put("userId", result);
+    		return ResponseEntity.ok(response);
     	}
     }
     
-//    @PostMapping("/user/change/password")
-//    public ResponseEntity<?> changePassword(@RequestBody Member member) { // 비밀번호 변경
-//    	
-//    }
+    @PutMapping("/user/find/password")
+    public ResponseEntity<Map<String, String>> findPassword(@RequestBody Member member) {
+    	String result = memberService.findPassword(member);
+    	
+    	Map<String, String> response = new HashMap<>();
+    	
+    	if (result.equals("존재하지 않는 회원입니다.")) {
+    		response.put("message", result);
+    		return ResponseEntity.badRequest().body(response);
+    	}
+    	else {
+    		response.put("newPwd", result);
+    		return ResponseEntity.ok(response);
+    	}
+    }
+    
+	
+    // 로그인 세션 정보확인용 URL // POST + localhost:8080/login > Header에서 Bearer 복사 > localhost:8080/auth > Header : Authorization으로 확인
+	@GetMapping("/auth") 
+	public @ResponseBody ResponseEntity<?> auth(@AuthenticationPrincipal User user){
+		if(user == null) { 
+			return ResponseEntity.ok("로그인 상태가 아닙니다."); 
+		}
+		else {
+			return ResponseEntity.ok(user); 
+		} 
+	}
+    
 }
