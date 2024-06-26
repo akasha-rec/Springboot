@@ -38,8 +38,7 @@ public class SecurityConfig {
 		http.csrf(csrf->csrf.disable());
 		
 		http.authorizeHttpRequests(auth->auth
-				.requestMatchers("/MyPage").authenticated()
-				.requestMatchers("/NutriCal").hasAnyRole("MEMBER", "ADMIN")
+				.requestMatchers("/MyPage").hasAnyRole("MEMBER", "ADMIN")
 				.anyRequest().permitAll());
 		
 		http.formLogin(frmLogin->frmLogin.disable()); // 스프링부트 시큐리티 제공 폼 로그인 X

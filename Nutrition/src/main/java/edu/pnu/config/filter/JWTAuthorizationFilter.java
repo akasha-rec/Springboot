@@ -38,9 +38,9 @@ public class JWTAuthorizationFilter extends OncePerRequestFilter {
 		String jwtToken = srcToken.replace("Bearer ", ""); // 토큰에서 "Bearer " 제거
 		
 		// 토큰에서 userId 추출
-		String userId = JWT.require(Algorithm.HMAC256("edu.pnu.jwt")).build().verify(jwtToken).getClaim("userId").asString();
+		String username = JWT.require(Algorithm.HMAC256("edu.pnu.jwt")).build().verify(jwtToken).getClaim("username").asString();
 		
-		Optional<Member> opt = memberRepository.findById(userId); // 토큰에서 얻은 userId로 DB 검색
+		Optional<Member> opt = memberRepository.findById(username); // 토큰에서 얻은 userId로 DB 검색
 		if (!opt.isPresent()) { // 사용자가 존재하지 않는다면
 			filterChain.doFilter(request, response); // 그냥 통과
 			return;

@@ -1,7 +1,5 @@
 package edu.pnu.service;
 
-import java.util.Optional;
-
 import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -9,7 +7,6 @@ import org.springframework.stereotype.Service;
 
 import edu.pnu.domain.Member;
 import edu.pnu.persistence.MemberRepository;
-import jakarta.transaction.Transactional;
 
 @Service
 public class MemberService {
@@ -44,8 +41,7 @@ public class MemberService {
 		}
 	}
 	
-	@Transactional
-	public String findPassword(Member member) {
+	public String findPassword(Member member) { // 비밀번호 찾기(임시 비밀번호 발급)
 		Member mem = memberRepo.findByUserIdAndPhoneNumber(member.getUserId(), member.getPhoneNumber());
 		
 		if (mem == null) {
@@ -62,24 +58,6 @@ public class MemberService {
 		}
 	}
 	
-	@Transactional
-	public String changePassword(Member member, String newPassword) {
-		Optional<Member> optMember = memberRepo.findByUserId(member.getUserId());
-		
-		if (optMember.isPresent()) {
-			Member mem = optMember.get();
-			
-			String encodedPwd = encoder.encode(newPassword); // 새 비밀번호를 암호화해서 저장
-			mem.setPassword(encodedPwd);
-			
-			memberRepo.save(mem);
-			
-			return "비밀번호가 성공적으로 변경되었습니다.";
-		}
-		else {
-			return "존재하지 않는 회원입니다.";
-		}
-	}
 
 //	public String findPassword(Member member) {
 //		Member mem = memberRepo.findByUserIdAndPhoneNumber(member.getUserId(), member.getPhoneNumber());
