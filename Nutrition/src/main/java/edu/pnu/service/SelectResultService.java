@@ -1,14 +1,13 @@
 package edu.pnu.service;
+// 가장 먼저 저장되서 부모 테이블격으로 rid 생성 > 자식 테이블격의 setRid
+//한 페이지의 데이터를 3개의 테이블로 저장할 때 먼저 저장되고 순차적으로 저장하는 경우는 처음이라 서비스 클래스 3개로 나누는 시도로 시작 > 해도 되나 하나의 서비스 클래스에서 각각의 Repository로 각각 Save 해주면 됨
 
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 import edu.pnu.domain.SelectResult;
 import edu.pnu.dto.DetailResultDTO;
 import edu.pnu.persistence.SelectResultRepository;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
@@ -17,28 +16,13 @@ public class SelectResultService {
 	
 	private final SelectResultRepository selectResultRepo;
 	
+	@Transactional
 	public void saveSelectResult(DetailResultDTO detailResult) {
 		
-		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-		Object principal = authentication.getPrincipal();
-		
-		String username = null;
-		if (principal instanceof UserDetails) {
-			username = ((UserDetails) principal).getUsername();
-		} else if (principal instanceof String) {
-			username = (String) principal;
-		} else {
-			// 처리할 수 없는 경우, 예외 처리 또는 기본값 설정
-			throw new IllegalStateException("Unknown principal type: " + principal.getClass());
-		}
-		
-		// User user = (User) authentication.getPrincipal(); 월요일에 여쭤보기
-		// class java.lang.String cannot be cast to class org.springframework.security.core.userdetails.User (java.lang.String is in module java.base of loader 'bootstrap'; org.springframework.security.core.userdetails.User is in unnamed module of loader 'app')
-		
 		SelectResult selectResult = new SelectResult();
-		selectResult.setRid(detailResult.getNum());
+//		selectResult.setRid(detailResult.getNum());
 		selectResult.setTitle(detailResult.getTitle());
-		selectResult.setUser_id(username);
+		selectResult.setUser_id(detailResult.getUserId());
 		selectResult.setAge(detailResult.getAge());
 		selectResult.setCondition1(detailResult.getCondition1());
 		selectResult.setCondition2(detailResult.getCondition2());
