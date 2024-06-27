@@ -31,7 +31,7 @@ public class DataSave {
 		SelectResult select = new SelectResult(); // 엔티티 객체 생성
 //		select.setRid(4);
 		select.setTitle("저장 이해");
-		select.setUser_id("testSave@naver.com");
+		select.setUserId("testSave@naver.com");
 		select.setAge("19~29");
 		select.setCondition1("임신 1분기(~12주)");
 		select.setCondition2("8주");
