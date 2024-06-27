@@ -2,15 +2,11 @@ package edu.pnu.domain;
 
 import java.time.LocalDateTime;
 
-import org.hibernate.annotations.CreationTimestamp;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.Temporal;
-import jakarta.persistence.TemporalType;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -31,13 +27,14 @@ public class SelectResult {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int rid;
 	private String title;
-	private String user_id;
+	@Column(name = "user_id", nullable = false)
+	private String userId;
 	
-	@Column(nullable = false, updatable = false)
-	@Temporal(TemporalType.TIMESTAMP)
-	@CreationTimestamp	
-	private LocalDateTime resultdate;
+	@Builder.Default
+	@Column(nullable = false, updatable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
+	private LocalDateTime resultdate = LocalDateTime.now();
 	private String age;
 	private String condition1;
 	private String condition2;
+	
 }
