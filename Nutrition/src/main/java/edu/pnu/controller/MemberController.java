@@ -4,7 +4,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -77,6 +79,14 @@ public class MemberController {
 		else {
 			return ResponseEntity.ok(user); 
 		} 
+	}
+	
+	@GetMapping("/auth1") 
+	public void auth1(){ // jwt 토큰에서 로그인한 사용자 정보 읽어오는 코드
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		User user = (User) auth.getPrincipal();
+		System.out.println(user.getUsername());
+		return; 
 	}
     
 }
