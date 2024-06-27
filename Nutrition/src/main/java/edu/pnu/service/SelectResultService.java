@@ -22,7 +22,7 @@ public class SelectResultService {
 		SelectResult selectResult = new SelectResult();
 //		selectResult.setRid(detailResult.getNum());
 		selectResult.setTitle(detailResult.getTitle());
-		selectResult.setUser_id(detailResult.getUserId());
+		selectResult.setUserId(detailResult.getUserId());
 		selectResult.setAge(detailResult.getAge());
 		selectResult.setCondition1(detailResult.getCondition1());
 		selectResult.setCondition2(detailResult.getCondition2());
