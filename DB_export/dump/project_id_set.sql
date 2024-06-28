@@ -1,0 +1,56 @@
+-- MySQL dump 10.13  Distrib 8.0.36, for Win64 (x86_64)
+--
+-- Host: 127.0.0.1    Database: project
+-- ------------------------------------------------------
+-- Server version	8.0.36
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!50503 SET NAMES utf8 */;
+/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
+/*!40103 SET TIME_ZONE='+00:00' */;
+/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+
+--
+-- Table structure for table `id_set`
+--
+
+DROP TABLE IF EXISTS `id_set`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `id_set` (
+  `sid` int NOT NULL AUTO_INCREMENT,
+  `rid` int NOT NULL,
+  `nid` int NOT NULL,
+  PRIMARY KEY (`sid`),
+  KEY `Fk_rid_idx` (`rid`),
+  KEY `Fk_nid_idx` (`nid`),
+  CONSTRAINT `Fk_nid` FOREIGN KEY (`nid`) REFERENCES `nutrition` (`id`),
+  CONSTRAINT `Fk_rid` FOREIGN KEY (`rid`) REFERENCES `select_result` (`rid`)
+) ENGINE=InnoDB AUTO_INCREMENT=55 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `id_set`
+--
+
+LOCK TABLES `id_set` WRITE;
+/*!40000 ALTER TABLE `id_set` DISABLE KEYS */;
+INSERT INTO `id_set` VALUES (1,1,2176),(2,1,186),(3,2,1),(4,2,2),(5,2,52),(6,2,121),(7,2,91),(8,2,53),(9,2,92),(10,2,121),(11,2,52),(12,2,54),(13,3,1),(14,3,52),(15,3,92),(16,3,96),(17,3,242),(18,3,292),(19,3,271),(20,3,374),(21,4,3007),(22,4,460),(23,5,2176),(24,5,2393),(25,6,52),(26,7,1),(27,7,1),(28,7,52),(29,7,270),(30,7,406),(31,7,2741),(32,7,467),(33,7,471),(34,7,270),(35,8,1),(36,9,1),(37,9,6),(38,9,2845),(39,9,407),(40,9,182),(41,9,219),(42,9,291),(43,9,53),(44,10,1),(45,10,53),(46,10,219),(47,10,54),(48,10,371),(49,10,474),(50,10,411),(51,10,457),(52,10,344),(53,11,2227),(54,11,283);
+/*!40000 ALTER TABLE `id_set` ENABLE KEYS */;
+UNLOCK TABLES;
+/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
+
+/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
+/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
+/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+
+-- Dump completed on 2024-06-28 17:17:14
